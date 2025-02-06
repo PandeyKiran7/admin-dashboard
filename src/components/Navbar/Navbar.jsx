@@ -1,9 +1,17 @@
 import bellIcon from "../../assets/bellIcon.png";
 import UserIcon from "../../assets/UserIcon.png";
 import searchIcon from "../../assets/searchIcon.png";
-const Navbar = () => {
+import { useState } from "react";
+const Navbar = ({toggleSidebar}) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
-    <header className="bg-white shadow-md p-4 flex justify-between items-center">
+    <nav className="bg-white shadow-md p-4 flex justify-between items-centerr">
+
+     <button onClick={toggleSidebar} className="text-gray-800 text-2xl md:hidden">
+        <span className="material-symbols-outlined">menu</span>
+      </button>
+
       <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
       <div className="flex items-center gap-5 bg-white text-zinc-700 rounded-b-md border-b border-transparent hover:border-b-blue-400 p-2">
   <input className="p-2 flex-1 outline-none" placeholder="Search..." />
@@ -27,7 +35,10 @@ const Navbar = () => {
           />
           <span className="absolute top-0 right-0 inline-block w-3 h-3 bg-red-500 rounded-full"></span>
         </button>
-        <div className="flex items-center space-x-2 cursor-pointer">
+
+    
+
+        <div className="flex items-center space-x-2 cursor-pointer"  onClick={() => setShowDropdown(!showDropdown)}>
           <img
             src={UserIcon}
             alt="Icon"
@@ -35,10 +46,24 @@ const Navbar = () => {
             height="50"
             className="h-8 w-8 text-gray-600"
           />
-          <span className="text-gray-700 font-medium">Admin</span>
+
+           <span className="text-gray-700 font-medium">Admin</span>
         </div>
+
+        {showDropdown && (
+          <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+              <ul className="py-2 text-gray-700">
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500">
+                  Logout
+                </li>
+              </ul>
+            </div>
+        )}
+
       </div>
-    </header>
+    </nav>
   );
 };
 
